@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alugue Um Carro | Car Rental Service</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <h1>Car Rental Service</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="booking.html">Alugue um Carro</a></li>
+            <li><a href="admin.html">Admin</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="booking-form">
+        <h2>Alugue Seu Carro</h2>
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="carSelect">Select Car:</label>
+                <select id="carSelect" required>
+                    <option value="">-- Select a Car --</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="customerName">Your Name:</label>
+                <input type="text" id="customerName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="customerEmail">Email:</label>
+                <input type="email" id="customerEmail" required>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Book Now</button>
+            </div>
+        </form>
+
+        <div id="bookingResult" class="result-message"></div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 Car Rental Service. All rights reserved.</p>
+</footer>
+
+<script src="js/booking.js"></script>
+</body>
+</html>
