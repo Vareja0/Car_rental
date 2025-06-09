@@ -13,7 +13,7 @@ public class DatabaseConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Conectado com sucesso!");
             conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3307/car_rental?useSSL=false&serverTimezone=UTC",
+                    "jdbc:mysql://localhost:3307/car_rental?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
                     "teste",
                     "senhaTeste"
             );

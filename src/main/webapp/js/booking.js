@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     fetchAvailableCars();
     setupFormValidation();
 });
@@ -33,7 +33,7 @@ function populateCarSelect(cars) {
     cars.filter(car => car.available).forEach(car => {
         const option = document.createElement('option');
         option.value = car.id;
-        option.textContent = `${car.make} ${car.model} ($${car.pricePerDay.toFixed(2)}/day)`;
+        option.textContent = `${car.make} ${car.model} (R$${car.pricePerDay.toFixed(2)}/dia)`
         carSelect.appendChild(option);
     });
 }
@@ -49,11 +49,11 @@ function setupFormValidation() {
     endDateInput.min = today;
 
 
-    startDateInput.addEventListener('change', function() {
+    startDateInput.addEventListener('change', function () {
         endDateInput.min = this.value;
     });
 
-    bookingForm.addEventListener('submit', function(e) {
+    bookingForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
         const carId = document.getElementById('carSelect').value;
@@ -83,15 +83,15 @@ function submitBooking(carId, customerName, customerEmail, startDate, endDate) {
     })
         .then(response => {
             if (!response.ok) {
-                return response.text().then(text => { throw new Error(text) });
+                return response.text().then(text => {
+                    throw new Error(text)
+                });
             }
             return response.json();
         })
         .then(data => {
-            showResultMessage(`Booking successful! Total price: $${data.totalPrice.toFixed(2)}`, true);
-            // Reset form
+            showResultMessage(`Aluguel registrado! Preco Total: R$${data.totalPrice.toFixed(2)}`, true);
             document.getElementById('bookingForm').reset();
-            // Refresh car list
             fetchAvailableCars();
         })
         .catch(error => {

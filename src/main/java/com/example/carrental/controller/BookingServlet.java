@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class BookingServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             int carId = Integer.parseInt(request.getParameter("carId"));
             String customerName = request.getParameter("customerName");
@@ -38,43 +39,40 @@ public class BookingServlet extends HttpServlet {
             Date startDate = Date.valueOf(request.getParameter("startDate"));
             Date endDate = Date.valueOf(request.getParameter("endDate"));
 
-            // Calculate total price
+            System.out.println(startDate + "    " + endDate);
+
             Car car = carDAO.getCarById(carId);
+
             if (car == null) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().write("Car not found");
+                response.getWriter().write("Carro nao encontrado");
                 return;
             }
 
             long days = ChronoUnit.DAYS.between(startDate.toLocalDate(), endDate.toLocalDate());
             double totalPrice = days * car.getPricePerDay();
 
-            Rental rental = new Rental();
-            rental.setCarId(carId);
-            rental.setCustomerName(customerName);
-            rental.setCustomerEmail(customerEmail);
-            rental.setStartDate(startDate);
-            rental.setEndDate(endDate);
-            rental.setTotalPrice(totalPrice);
+            if (startDate.equals(endDate)) {
+                totalPrice = car.getPricePerDay();
+            }
+
+            Rental rental = new Rental(carId, customerName, customerEmail, startDate, endDate, totalPrice);
 
             if (rentalDAO.createRental(rental)) {
-                // Update car availability
                 carDAO.updateCarAvailability(carId, false);
                 response.setStatus(HttpServletResponse.SC_CREATED);
                 JsonUtil.sendAsJson(response, rental);
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.getWriter().write("Failed to create rental");
+                response.getWriter().write("Falha ao criar rental");
             }
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Error processing booking: " + e.getMessage());
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Invalid car ID");
+            response.getWriter().write("car ID invalido");
         } catch (IllegalArgumentException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Invalid date format");
+            response.getWriter().write("date format invalido");
         }
     }
+
 }

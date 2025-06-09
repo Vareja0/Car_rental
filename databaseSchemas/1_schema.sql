@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS rentals (
 
 
 INSERT IGNORE INTO cars (make, model, year, color, price_per_day) VALUES
-('Toyota', 'Camry', 2022, 'Silver', 45.99),
-('Honda', 'Civic', 2023, 'Blue', 39.99),
-('Ford', 'Mustang', 2021, 'Red', 89.99),
-('Tesla', 'Model 3', 2023, 'White', 99.99),
-('Jeep', 'Wrangler', 2022, 'Black', 79.99);
+('Toyota', 'Camry', 2022, 'Prata', 45.99),
+('Honda', 'Civic', 2023, 'Azul', 39.99),
+('Ford', 'Mustang', 2021, 'Vermelho', 89.99),
+('Tesla', 'Model 3', 2023, 'Branco', 99.99),
+('Jeep', 'Wrangler', 2022, 'Preto', 79.99);

@@ -1,9 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     fetchRentalRecords();
 });
 
 function fetchRentalRecords() {
-    fetch('/car_rental_war_exploded/api/admin/rentals')
+    const contextPath = window.location.pathname.split('/')[1];
+    fetch(`/${contextPath}/api/admin/rentals`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -39,7 +40,7 @@ function displayRentalRecords(rentals) {
             <td>${rental.customerEmail}</td>
             <td>${new Date(rental.startDate).toLocaleDateString()}</td>
             <td>${new Date(rental.endDate).toLocaleDateString()}</td>
-            <td>$${rental.totalPrice.toFixed(2)}</td>
+            <td>R$${rental.totalPrice.toFixed(2)}</td>
         `;
 
         tableBody.appendChild(row);

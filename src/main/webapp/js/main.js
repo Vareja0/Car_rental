@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     fetchAvailableCars();
 });
 
@@ -32,8 +32,8 @@ function displayCars(cars) {
             <div class="car-info">
                 <h3>${car.make} ${car.model} (${car.year})</h3>
                 <p>Color: ${car.color}</p>
-                <p class="price">R$${car.pricePerDay.toFixed(2)} per day</p>
-                <p>Status: ${car.available ? 'Available' : 'Rented'}</p>
+                <p class="price">R$${car.pricePerDay.toFixed(2)} por dia</p>
+                <p>Status: ${car.available ? 'Disponivel' : 'Alugado'}</p>
             </div>
         `;
 
